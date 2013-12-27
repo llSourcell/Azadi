@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExploreViewController : UIViewController
+@interface ExploreViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate>
+
+
 @property (strong, nonatomic) IBOutlet UICollectionView *picsList;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+
+@property (strong, nonatomic) NSMutableArray *allPhotos;
+@property (strong, nonatomic) NSMutableArray *photoObjects;
+
+
+
+
 
 @end
