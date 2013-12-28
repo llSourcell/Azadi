@@ -100,7 +100,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
-            NSLog(@"Successfully retrieved %d main_photo objects for the user.", objects.count);
+            //NSLog(@"Successfully retrieved %d main_photo objects for the user.", objects.count);
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSLog(@"object ids %@", object.objectId);

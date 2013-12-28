@@ -209,6 +209,7 @@ AppDelegate *appDelegate;
     PFObject *photos = [PFObject objectWithClassName:@"Photos"];
     photos[@"profile_pic"] =imageFile;
     photos[@"user"] = user;
+    photos[@"my_username"] = user.username;
     
     
     

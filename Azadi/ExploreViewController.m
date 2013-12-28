@@ -59,13 +59,74 @@
     
     
     UIImageView *precellImage = [[UIImageView alloc] init];
-    precellImage.image = [allPhotos objectAtIndex:indexPath.row];
+    precellImage.image = [allPhotos objectAtIndex:indexPath.row];  //Picture selected
+
+    
+   
+    
     
     UIImageView *cellImage = (UIImageView *)[cell viewWithTag:2];
     cellImage.image = precellImage.image;
     [cell addSubview:cellImage];
     return cell;
 }
+
+
+
+-(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+ 
+    //Main_Photos object. Extract all info.
+    PFObject *selectedPhoto =  [photoObjects objectAtIndex:indexPath.row];
+    PFFile *photoFile = selectedPhoto[@"snapped_pics"];
+    NSData *photoTouched = [photoFile getData]; //selected photo [1]
+    NSDate *timestamp = [selectedPhoto updatedAt]; //TimeStamp [2]
+    NSString *username = selectedPhoto[@"my_username"];  // Username [3]
+    NSLog(@"username is %@", username);
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:photoTouched forKey:@"photoTouched_explore"];
+        [standardUserDefaults setObject:timestamp forKey:@"timestamp_explore"];
+        [standardUserDefaults setObject:username forKey:@"username_explore"];
+        [standardUserDefaults synchronize];
+    }
+    
+    
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Photos"];
+    [query whereKey:@"my_username" equalTo:username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *object in objects) {
+                PFFile *getFile = object[@"profile_pic"];
+                NSData *profile_pic = [getFile getData]; // Profile_pic [4]
+                NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+                
+                if (standardUserDefaults) {
+                    [standardUserDefaults setObject:profile_pic forKey:@"profilepic_explore"];
+                    [standardUserDefaults synchronize];
+                }
+                
+            }
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+   
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
 
 -(void) pullAllPhotos
 {
@@ -74,13 +135,16 @@
     photoObjects = [[NSMutableArray alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Main_Photos"];
+    [query includeKey:@"user"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSLog(@"object ids %@", object.objectId);
+                
                 PFFile *imagefile = object[@"snapped_pics"];
+                [photoObjects addObject:object];
                 [imagefile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
                     if (!error) {
                         //Get each image and put it into an array
@@ -91,6 +155,7 @@
                         
                         dispatch_async(dispatch_get_main_queue(), ^ {
                             [self.picsList reloadData];
+                         
                         });
                         
                     }

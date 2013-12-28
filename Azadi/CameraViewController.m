@@ -155,6 +155,8 @@
     userPhoto[@"snapped_pics"] = imageFile;
     userPhoto[@"User"] = currentUser;
     userPhoto[@"Caption"] = caption;
+    //TODO BEFORE DMV
+    userPhoto[@"my_username"] = currentUser.username;
     [userPhoto saveInBackground];
 }
 
