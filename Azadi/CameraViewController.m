@@ -154,8 +154,7 @@
     PFObject *userPhoto = [PFObject objectWithClassName:@"Main_Photos"];
     userPhoto[@"snapped_pics"] = imageFile;
     userPhoto[@"User"] = currentUser;
-    userPhoto[@"Caption"] = caption;
-    //TODO BEFORE DMV
+    userPhoto[@"Hashtag"] = caption;
     userPhoto[@"my_username"] = currentUser.username;
     [userPhoto saveInBackground];
 }

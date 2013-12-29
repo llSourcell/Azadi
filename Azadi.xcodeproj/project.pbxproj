@@ -39,6 +39,7 @@
 		79E40D06186A57ED001524EA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E40D05186A57ED001524EA /* SystemConfiguration.framework */; };
 		79E40D0A186A641B001524EA /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E40D09186A641B001524EA /* Parse.framework */; };
 		79E40D11186D39AA001524EA /* SelectedPicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E40D10186D39AA001524EA /* SelectedPicViewController.m */; };
+		79E40D14186F6A3B001524EA /* selfSelectedPicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E40D13186F6A3B001524EA /* selfSelectedPicViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,8 @@
 		79E40D09186A641B001524EA /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		79E40D0F186D39AA001524EA /* SelectedPicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedPicViewController.h; sourceTree = "<group>"; };
 		79E40D10186D39AA001524EA /* SelectedPicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedPicViewController.m; sourceTree = "<group>"; };
+		79E40D12186F6A3B001524EA /* selfSelectedPicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selfSelectedPicViewController.h; sourceTree = "<group>"; };
+		79E40D13186F6A3B001524EA /* selfSelectedPicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = selfSelectedPicViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +194,8 @@
 				79E40CD31868E948001524EA /* CameraViewController.m */,
 				79E40CD51868EA6F001524EA /* ProfileViewController.h */,
 				79E40CD61868EA6F001524EA /* ProfileViewController.m */,
+				79E40D12186F6A3B001524EA /* selfSelectedPicViewController.h */,
+				79E40D13186F6A3B001524EA /* selfSelectedPicViewController.m */,
 				79E40CB21868E4B1001524EA /* Images.xcassets */,
 				79E40C9B1868E4B1001524EA /* Supporting Files */,
 			);
@@ -332,6 +337,7 @@
 				79E40CD41868E948001524EA /* CameraViewController.m in Sources */,
 				79E40CA51868E4B1001524EA /* AppDelegate.m in Sources */,
 				79E40CDB1868EBEB001524EA /* LoginViewController.m in Sources */,
+				79E40D14186F6A3B001524EA /* selfSelectedPicViewController.m in Sources */,
 				79E40CAE1868E4B1001524EA /* HomeViewController.m in Sources */,
 				79E40CA11868E4B1001524EA /* main.m in Sources */,
 			);

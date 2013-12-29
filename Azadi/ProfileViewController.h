@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *profilePic;
 @property (strong, nonatomic) IBOutlet UILabel *username;
 
+@property (strong, nonatomic) NSMutableArray *photoObjects;
 
 @property (strong, nonatomic) NSMutableArray *myPhotos;
 @property (strong, nonatomic) IBOutlet UICollectionView *photoCollectionView;

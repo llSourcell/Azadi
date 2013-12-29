@@ -86,7 +86,7 @@
                                     <outlet property="delegate" destination="QUy-BD-bpt" id="kai-wp-1v5"/>
                                 </connections>
                             </collectionView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUt-9I-9kh">
+                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="prominent" translatesAutoresizingMaskIntoConstraints="NO" id="JUt-9I-9kh">
                                 <rect key="frame" x="0.0" y="50" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -112,6 +112,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HXd-vV-4Nb">
+                            <rect key="frame" x="0.0" y="297" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Like">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="likeButtonTapped:" destination="Nrl-f0-hys" eventType="touchUpInside" id="aag-eH-VKP"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photoSelected" rowHeight="275" id="RXY-fl-gkd">
                                 <rect key="frame" x="0.0" y="22" width="320" height="275"/>
@@ -128,6 +138,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="C97-PJ-zT0"/>
+                    <connections>
+                        <outlet property="likeButton" destination="HXd-vV-4Nb" id="nJQ-gK-Dbl"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yc9-Hz-Df1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -234,6 +247,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="TIj-M6-63V" kind="modal" id="3ZB-UC-HWN"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -254,6 +270,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGr-cI-k7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="662" y="1403"/>
+        </scene>
+        <!--Self Selected Pic View Controller-->
+        <scene sceneID="eSK-Xx-Q3q">
+            <objects>
+                <tableViewController id="TIj-M6-63V" customClass="selfSelectedPicViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="248" sectionHeaderHeight="22" sectionFooterHeight="22" id="alx-O0-2ic">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="selfphotoSelected" rowHeight="248" id="Yg2-M4-UAE">
+                                <rect key="frame" x="0.0" y="22" width="320" height="248"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yg2-M4-UAE" id="ZOz-LO-wDg">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="TIj-M6-63V" id="Eci-CI-Zcc"/>
+                            <outlet property="delegate" destination="TIj-M6-63V" id="STf-Jn-Jc5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="0OX-2e-18l"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hpC-LE-Yll" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1209" y="1389"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">

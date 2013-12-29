@@ -18,7 +18,7 @@
 
 @implementation ProfileViewController
 
-@synthesize username, profilePic, myPhotos, photoCollectionView;
+@synthesize username, profilePic, myPhotos, photoCollectionView, photoObjects;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -86,11 +86,63 @@
     return cell;
 }
 
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    //For the selected photo
+    PFObject *selectedPhoto;
+    selectedPhoto =  [photoObjects objectAtIndex:indexPath.row];
+    NSLog(@"the photo is %@", selectedPhoto);
+    PFFile *photoFile = selectedPhoto[@"snapped_pics"];
+    NSData *photoTouched = [photoFile getData]; //selected photo [1]
+    NSLog(@"the photo data is %@", photoTouched);
+    NSDate *timestamp = [selectedPhoto updatedAt]; //TimeStamp [2]
+    NSLog(@"the timestamp is %@", timestamp);
+
+    NSString *username2 = username.text;
+
+    
+    
+    //Send it User defaults
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:photoTouched forKey:@"photoTouched_self"];
+        [standardUserDefaults setObject:timestamp forKey:@"timestamp_self"];
+        [standardUserDefaults setObject:username2 forKey:@"username_self"];
+        [standardUserDefaults synchronize];
+    }
+    
+    
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Photos"];
+    [query whereKey:@"my_username" equalTo:username2];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *object in objects) {
+                PFFile *getFile = object[@"profile_pic"];
+                NSData *profile_pic = [getFile getData]; // Profile_pic [4]
+                NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+                
+                if (standardUserDefaults) {
+                    [standardUserDefaults setObject:profile_pic forKey:@"profilepic_self"];
+                    [standardUserDefaults synchronize];
+                }
+                
+            }
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
+
+}
 
 -(void) pullUserPhotos
 {
 
     myPhotos = [[NSMutableArray alloc] init];
+    photoObjects = [[NSMutableArray alloc] init];
 
     //Username is pulled
     PFUser *curr_user = [PFUser currentUser];
@@ -104,6 +156,7 @@
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSLog(@"object ids %@", object.objectId);
+                [photoObjects addObject:object];
                 PFFile *imagefile = object[@"snapped_pics"];
                 [imagefile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
                     if (!error) {

@@ -17,6 +17,7 @@
 
 @implementation SelectedPicViewController
 
+@synthesize likeButton;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,7 +34,7 @@
 
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
-   
+    
   
 
     // Uncomment the following line to preserve selection between presentations.
@@ -96,40 +97,9 @@
     photoCell.image = photoTouched;
     [cell.contentView addSubview:photoCell];
     
-    //Add like Button
-    UIButton *likebutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [likebutton addTarget:self
-               action:@selector(likeButtonClicked:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [likebutton setTitle:@"Like" forState:UIControlStateNormal];
-    likebutton.frame = CGRectMake(100.0, 55.0, 100.0, 40.0);
-    likebutton.backgroundColor = [UIColor blackColor];
-    [cell.contentView addSubview:likebutton];
-    
-    
-    //Add follow Button
-    UIButton *followbutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [followbutton addTarget:self
-               action:@selector(followButtonClicked:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [followbutton setTitle:@"Follow" forState:UIControlStateNormal];
-    followbutton.frame = CGRectMake(200.0, 55.0, 100.0, 40.0);
-    followbutton.backgroundColor = [UIColor purpleColor];
-    [cell.contentView addSubview:followbutton];
-    
+
     
     return cell;
-}
-
--(void) likeButtonClicked:(id)sender
-{
-    NSLog(@"you clicked on the like button");
-}
-
-
--(void) followButtonClicked:(id)sender
-{
-    NSLog(@"you clicked on the follow button");
 }
 
 
@@ -184,4 +154,43 @@
 
  */
 
+
+
+- (IBAction)likeButtonTapped:(UIButton *)sender
+{
+    //if the like button says "unlike" do nothing..
+    PFUser *current = [PFUser currentUser];
+    NSString *objectid = [[NSUserDefaults standardUserDefaults] objectForKey:@"objectid_explore"];
+    
+    //query your photos_ive_liked array to see if it contains the current photo object
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"photos_ive_liked" containsAllObjectsInArray:@[objectid]];
+    NSArray *object_array = [query findObjects];
+    
+    
+    
+    //if the user has already liked the photo
+    if([object_array count] > 0)
+    {
+        NSLog(@"You've already liked this photo!");
+    }
+    else //if the user hasn't already liked the photo
+    {
+    
+        //add this photo to your photos_ive_liked array
+        [current addUniqueObjectsFromArray:@[objectid] forKey:@"photos_ive_liked"];
+        [current saveInBackground];
+
+        PFObject *photo_to_like = [PFObject objectWithoutDataWithClassName:@"Main_Photos" objectId:objectid];
+    
+        // Increment the current value of the quantity key by 1
+        [photo_to_like incrementKey:@"Likes"];
+    
+        // Save
+        [photo_to_like save];
+        
+        NSLog(@"You haven't liked this photo yet!");
+
+    }
+}
 @end
