@@ -112,16 +112,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HXd-vV-4Nb">
-                            <rect key="frame" x="0.0" y="297" width="320" height="44"/>
+                        <segmentedControl key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="qvt-u0-P7Y">
+                            <rect key="frame" x="0.0" y="297" width="320" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Like">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
+                            <segments>
+                                <segment title="Like"/>
+                                <segment title="Comment"/>
+                            </segments>
                             <connections>
-                                <action selector="likeButtonTapped:" destination="Nrl-f0-hys" eventType="touchUpInside" id="aag-eH-VKP"/>
+                                <action selector="socialTapped:" destination="Nrl-f0-hys" eventType="valueChanged" id="8ZI-Ga-QOE"/>
                             </connections>
-                        </button>
+                        </segmentedControl>
                         <prototypes>
                             <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photoSelected" rowHeight="275" id="RXY-fl-gkd">
                                 <rect key="frame" x="0.0" y="22" width="320" height="275"/>
@@ -139,7 +140,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="C97-PJ-zT0"/>
                     <connections>
-                        <outlet property="likeButton" destination="HXd-vV-4Nb" id="nJQ-gK-Dbl"/>
+                        <outlet property="socialActions" destination="qvt-u0-P7Y" id="ebB-m8-6GW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yc9-Hz-Df1" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79339F2B1870B757007458AE /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79339F291870B757007458AE /* CommentViewController.m */; };
+		79339F2C1870B757007458AE /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79339F2A1870B757007458AE /* CommentViewController.xib */; };
 		79E40C951868E4B1001524EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E40C941868E4B1001524EA /* Foundation.framework */; };
 		79E40C971868E4B1001524EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E40C961868E4B1001524EA /* CoreGraphics.framework */; };
 		79E40C991868E4B1001524EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E40C981868E4B1001524EA /* UIKit.framework */; };
@@ -53,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79339F281870B757007458AE /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentViewController.h; path = ../CommentViewController.h; sourceTree = "<group>"; };
+		79339F291870B757007458AE /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentViewController.m; path = ../CommentViewController.m; sourceTree = "<group>"; };
+		79339F2A1870B757007458AE /* CommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CommentViewController.xib; path = ../CommentViewController.xib; sourceTree = "<group>"; };
 		79E40C911868E4B1001524EA /* Azadi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Azadi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79E40C941868E4B1001524EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79E40C961868E4B1001524EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -190,6 +195,9 @@
 				79E40CB01868E4B1001524EA /* ExploreViewController.m */,
 				79E40D0F186D39AA001524EA /* SelectedPicViewController.h */,
 				79E40D10186D39AA001524EA /* SelectedPicViewController.m */,
+				79339F281870B757007458AE /* CommentViewController.h */,
+				79339F291870B757007458AE /* CommentViewController.m */,
+				79339F2A1870B757007458AE /* CommentViewController.xib */,
 				79E40CD21868E948001524EA /* CameraViewController.h */,
 				79E40CD31868E948001524EA /* CameraViewController.m */,
 				79E40CD51868EA6F001524EA /* ProfileViewController.h */,
@@ -308,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79339F2C1870B757007458AE /* CommentViewController.xib in Resources */,
 				79E40CDC1868EBEB001524EA /* LoginViewController.xib in Resources */,
 				79E40CAB1868E4B1001524EA /* Main_iPad.storyboard in Resources */,
 				79E40CB31868E4B1001524EA /* Images.xcassets in Resources */,
@@ -335,6 +344,7 @@
 				79E40CB11868E4B1001524EA /* ExploreViewController.m in Sources */,
 				79E40D11186D39AA001524EA /* SelectedPicViewController.m in Sources */,
 				79E40CD41868E948001524EA /* CameraViewController.m in Sources */,
+				79339F2B1870B757007458AE /* CommentViewController.m in Sources */,
 				79E40CA51868E4B1001524EA /* AppDelegate.m in Sources */,
 				79E40CDB1868EBEB001524EA /* LoginViewController.m in Sources */,
 				79E40D14186F6A3B001524EA /* selfSelectedPicViewController.m in Sources */,
@@ -568,6 +578,7 @@
 				79E40CCB1868E4B1001524EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		79E40CCC1868E4B1001524EA /* Build configuration list for PBXNativeTarget "AzadiTests" */ = {
 			isa = XCConfigurationList;
@@ -576,6 +587,7 @@
 				79E40CCE1868E4B1001524EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

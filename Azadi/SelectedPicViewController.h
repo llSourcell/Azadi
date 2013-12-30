@@ -10,8 +10,12 @@
 
 @interface SelectedPicViewController : UITableViewController
 
-- (IBAction)likeButtonTapped:(UIButton *)sender;
 
-@property (strong, nonatomic) IBOutlet UIButton *likeButton;
+
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *socialActions;
+
+
+- (IBAction)socialTapped:(id)sender;
 
 @end

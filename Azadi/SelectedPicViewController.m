@@ -9,6 +9,7 @@
 #import "SelectedPicViewController.h"
 #import "ExploreViewController.h"
 #import <Parse/Parse.h>
+#import "CommentViewController.h"
 
 
 @interface SelectedPicViewController ()
@@ -17,7 +18,7 @@
 
 @implementation SelectedPicViewController
 
-@synthesize likeButton;
+@synthesize socialActions;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,21 +34,17 @@
     [super viewDidLoad];
 
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
-    
-  
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    //every time view appears, nothing selected
+ [socialActions setSelectedSegmentIndex:UISegmentedControlNoSegment];
 }
 
 #pragma mark - Table view data source
@@ -103,94 +100,61 @@
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (IBAction)socialTapped:(id)sender
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
-
-
-
-- (IBAction)likeButtonTapped:(UIButton *)sender
-{
-    //if the like button says "unlike" do nothing..
-    PFUser *current = [PFUser currentUser];
-    NSString *objectid = [[NSUserDefaults standardUserDefaults] objectForKey:@"objectid_explore"];
-    
-    //query your photos_ive_liked array to see if it contains the current photo object
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"photos_ive_liked" containsAllObjectsInArray:@[objectid]];
-    NSArray *object_array = [query findObjects];
-    
-    
-    
-    //if the user has already liked the photo
-    if([object_array count] > 0)
+    switch (socialActions.selectedSegmentIndex)
     {
-        NSLog(@"You've already liked this photo!");
-    }
-    else //if the user hasn't already liked the photo
-    {
-    
-        //add this photo to your photos_ive_liked array
-        [current addUniqueObjectsFromArray:@[objectid] forKey:@"photos_ive_liked"];
-        [current saveInBackground];
+        //user taps "LIKE"
+        case 0:
+        {
+            //if the like button says "unlike" do nothing..
+            PFUser *current = [PFUser currentUser];
+            NSString *objectid = [[NSUserDefaults standardUserDefaults] objectForKey:@"objectid_explore"];
+            
+            //query your photos_ive_liked array to see if it contains the current photo object
+            PFQuery *query = [PFUser query];
+            [query whereKey:@"photos_ive_liked" containsAllObjectsInArray:@[objectid]];
+            NSArray *object_array = [query findObjects];
+            
+            
+            
+            //if the user has already liked the photo
+            if([object_array count] > 0)
+            {
+                NSLog(@"You've already liked this photo!");
+            }
+            else //if the user hasn't already liked the photo
+            {
+                
+                //add this photo to your photos_ive_liked array
+                [current addUniqueObjectsFromArray:@[objectid] forKey:@"photos_ive_liked"];
+                [current saveInBackground];
+                
+                PFObject *photo_to_like = [PFObject objectWithoutDataWithClassName:@"Main_Photos" objectId:objectid];
+                
+                // Increment the current value of the quantity key by 1
+                [photo_to_like incrementKey:@"Likes"];
+                
+                // Save
+                [photo_to_like save];
+                
+                NSLog(@"You haven't liked this photo yet!");
+                
+            }
+            break;
 
-        PFObject *photo_to_like = [PFObject objectWithoutDataWithClassName:@"Main_Photos" objectId:objectid];
-    
-        // Increment the current value of the quantity key by 1
-        [photo_to_like incrementKey:@"Likes"];
-    
-        // Save
-        [photo_to_like save];
-        
-        NSLog(@"You haven't liked this photo yet!");
-
+        }
+        //User taps comment
+        case 1:
+        {
+            NSLog(@"comment");
+            CommentViewController *commentView = [[CommentViewController alloc] initWithNibName:@"CommentViewController" bundle:nil];
+            [self presentViewController:commentView animated:YES completion:nil];
+            break;
+            
+        }
+      
     }
 }
 @end
